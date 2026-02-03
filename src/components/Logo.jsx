@@ -1,9 +1,10 @@
-import React from 'react'
-import { darkBlue, lightBlue } from '../utils/colors'
+import { lightBlue, LOGO, darkBlue } from "../utils/constants"
 
-const Logo = ({size="lg"}) => {
+
+
+const Logo = ({fontSize="20px"}) => {
   return (
-    <h1 className={`text-${size} font-bold tracking-widest text-center`}><span style={{ color: darkBlue }} >work</span><span style={{ color: lightBlue }}>sphere</span></h1>
+    <h1 style={{fontSize:fontSize}} className={`font-bold tracking-widest select-none text-center`}><span style={{ color: darkBlue }} >{LOGO.partOne}</span><span style={{ color: lightBlue }}>{LOGO.partTwo}</span></h1>
   )
 }
 

@@ -5,7 +5,7 @@ import Logo from '../../../components/Logo'
 const LoginBanner = () => {
     return (
         <div className='w-[50%]'>
-            <Logo size='5xl' />
+            <Logo fontSize='4vw' />
             <img src={BannerImg} alt="" />
         </div>
     )
