@@ -15,8 +15,8 @@ const LoginForm = () => {
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     return (
-        <div className="w-[50%]">
-            <div className="px-5 py-4 rounded-2xl w-[60%] mx-auto space-y-3">
+        <div className="w-[50%] ">
+            <div className="px-5 relative bg-white py-12 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
                 <h2 className="text-3xl font-semibold text-center text-[#012D52]">
                     {loginTitle}
                 </h2>
@@ -29,6 +29,7 @@ const LoginForm = () => {
                                 setUserCred((prev) => ({ ...prev, email: e.target.value }));
                             }}
                             autoFocus
+                            tabIndex={1}
                             className="outline-none ml-2 w-full"
                             type="text"
                             placeholder="Username or Email ID"
@@ -43,7 +44,7 @@ const LoginForm = () => {
                                 onChange={(e) => {
                                     setUserCred((prev) => ({ ...prev, password: e.target.value }));
                                 }}
-                                autoFocus
+                            tabIndex={2}
                                 className="outline-none ml-2 w-full"
                                 type={isShowPassword ? "text" : "password"}
                                 placeholder="Password"
@@ -52,12 +53,15 @@ const LoginForm = () => {
                         </div>
                         {/* Show password */}
                         <label
-                            onChange={() =>setIsShowPassword(prev=> !prev)}
+                            onChange={() => setIsShowPassword(prev => !prev)}
                             style={{ color: darkBlue }}
                             className="font-semibold select-none w-fit flex items-center cursor-pointer gap-2"
                             htmlFor="showpassword"
                         >
                             <input
+                            
+                        
+                            tabIndex={3}
                                 id="showpassword"
                                 type="checkbox"
                                 className="w-4 h-4 cursor-pointer"
@@ -65,7 +69,8 @@ const LoginForm = () => {
                             {showPasswordTxt}
                         </label>
                     </div>
-                    <button className="bg-[#00BCBB] text-white w-full px-3 py-2 rounded-sm cursor-pointer text-lg hover:bg-[#0b8d8d] font-bold">
+                    <button 
+                            tabIndex={4} className="bg-[#00BCBB] text-white w-full px-3 py-2 rounded-sm cursor-pointer text-lg hover:bg-[#0b8d8d] font-bold">
                         {proceedBtnTxt}
                         <FontAwesomeIcon className="ml-2" icon={faForward} />
                     </button>
@@ -79,6 +84,8 @@ const LoginForm = () => {
                     </p>
                 </div>
             </div>
+
+
         </div>
     );
 };
