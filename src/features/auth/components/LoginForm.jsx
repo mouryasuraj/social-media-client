@@ -20,7 +20,7 @@ const LoginForm = () => {
                 <h2 className="text-3xl font-semibold text-center text-[#012D52]">
                     {loginTitle}
                 </h2>
-                <form className="w-full space-y-4">
+                <form  className="w-full space-y-4">
                     {/* Email */}
                     <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                         <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
