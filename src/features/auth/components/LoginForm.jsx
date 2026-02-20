@@ -9,9 +9,10 @@ import {
     darkBlue,
 } from "../../../utils/constants";
 import { useState } from "react";
+import { useLoginForm } from "../hooks";
 
 const LoginForm = () => {
-    const [userCred, setUserCred] = useState({ email: "", password: "" });
+    const {userDetails, handleInputChange} = useLoginForm()
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     return (
@@ -26,7 +27,7 @@ const LoginForm = () => {
                         <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
                         <input
                             onChange={(e) => {
-                                setUserCred((prev) => ({ ...prev, email: e.target.value }));
+                                handleInputChange(e,"email")
                             }}
                             autoFocus
                             tabIndex={1}
@@ -42,8 +43,8 @@ const LoginForm = () => {
                             <FontAwesomeIcon color={darkBlue} className="" icon={faLock} />
                             <input
                                 onChange={(e) => {
-                                    setUserCred((prev) => ({ ...prev, password: e.target.value }));
-                                }}
+                                handleInputChange(e,"password")
+                            }}
                             tabIndex={2}
                                 className="outline-none ml-2 w-full"
                                 type={isShowPassword ? "text" : "password"}
