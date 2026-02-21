@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import loginService from "../services/loginService";
+import { toast } from "react-toastify";
+import { showMessage } from "../../../utils/constants/showMessage";
 
 // Initial State 
 const initialState = {
@@ -37,16 +39,20 @@ const authSlice = createSlice({
             state.isLoading = true
         })
         .addCase(login.fulfilled, (state, action) =>{
-            state.user = action?.payload?.data || null;
+            state.user = action.payload?.data || null;
             state.isLoading = false;
             state.isError = false;
-            state.message = action?.payload?.message || "Successfully loggedIn."
+            state.isSuccess = true;
+            state.message = action.payload?.message || "Successfully loggedIn."
+            showMessage("success", state.message)
         })
         .addCase(login.rejected, (state,action)=>{
+            state.user = null
             state.isLoading = false;
             state.isError = true;
-            state.rejected = action.payload || "Something went wrong. Please try again later."
-            state.user = null
+            state.isSuccess = false;
+            state.message = action.payload || "Something went wrong. Please try again later."
+            showMessage("error", state.message)
         })
     }
 })

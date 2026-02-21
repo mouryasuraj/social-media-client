@@ -1,7 +1,8 @@
 import axios from 'axios'
+import { env } from '../utils/constants';
 
 const axiosInstance = axios.create({
-    baseURL:import.meta.env.VITE_BASE_URL,
+    baseURL:env.BASE_URL,
     withCredentials:true
 })
 

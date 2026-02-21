@@ -1,19 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import {
-    forgotPassTxt,
-    loginTitle,
-    proceedBtnTxt,
-    showPasswordTxt,
-    createAnAccountTxt,
-    darkBlue,
-} from "../../../utils/constants";
+import { darkBlue } from "../../../utils/constants";
 import { useState } from "react";
 import { useLoginForm } from "../hooks";
+import { createAnAccountTxt, forgotPassTxt, loginTitle, proceedBtnTxt, showPasswordTxt} from "../login.constants.js"
+import Loader from "../../../components/Loader.jsx";
+import { useSelector } from "react-redux";
 
 const LoginForm = () => {
-    const {userDetails, handleInputChange} = useLoginForm()
+    const { handleInputChange, handleSubmit } = useLoginForm()
+    const { isLoading } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
+
 
     return (
         <div className="w-[50%] ">
@@ -21,13 +19,13 @@ const LoginForm = () => {
                 <h2 className="text-3xl font-semibold text-center text-[#012D52]">
                     {loginTitle}
                 </h2>
-                <form  className="w-full space-y-4">
+                <form onSubmit={handleSubmit} className="w-full space-y-4">
                     {/* Email */}
                     <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                         <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
                         <input
                             onChange={(e) => {
-                                handleInputChange(e,"email")
+                                handleInputChange(e, "email")
                             }}
                             autoFocus
                             tabIndex={1}
@@ -37,15 +35,16 @@ const LoginForm = () => {
                             name="email"
                         />
                     </div>
+
                     <div>
                         {/* Password */}
                         <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white mb-2">
                             <FontAwesomeIcon color={darkBlue} className="" icon={faLock} />
                             <input
                                 onChange={(e) => {
-                                handleInputChange(e,"password")
-                            }}
-                            tabIndex={2}
+                                    handleInputChange(e, "password")
+                                }}
+                                tabIndex={2}
                                 className="outline-none ml-2 w-full"
                                 type={isShowPassword ? "text" : "password"}
                                 placeholder="Password"
@@ -60,9 +59,9 @@ const LoginForm = () => {
                             htmlFor="showpassword"
                         >
                             <input
-                            
-                        
-                            tabIndex={3}
+
+
+                                tabIndex={3}
                                 id="showpassword"
                                 type="checkbox"
                                 className="w-4 h-4 cursor-pointer"
@@ -70,10 +69,12 @@ const LoginForm = () => {
                             {showPasswordTxt}
                         </label>
                     </div>
-                    <button 
-                            tabIndex={4} className="bg-[#00BCBB] text-white w-full px-3 py-2 rounded-sm cursor-pointer text-lg hover:bg-[#0b8d8d] font-bold">
-                        {proceedBtnTxt}
-                        <FontAwesomeIcon className="ml-2" icon={faForward} />
+                    <button
+                        disabled={isLoading}
+                        tabIndex={4} className={`${isLoading ? "bg-[#c0c0c0] cursor-not-allowed" : "bg-[#00BCBB] cursor-pointer hover:bg-[#0b8d8d]"} text-white w-full px-3 py-2 rounded-sm  text-lg  font-bold flex items-center justify-center gap-2`}>
+                        {isLoading && <Loader />}
+                        <span>{proceedBtnTxt}</span>
+                        <FontAwesomeIcon className="" icon={faForward} />
                     </button>
                 </form>
                 <div className="flex items-center justify-between">

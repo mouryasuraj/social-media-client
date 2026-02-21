@@ -1,8 +1,8 @@
-import React from 'react'
+
 
 const Loader = () => {
   return (
-    <div>Loading .......</div>
+    <div className='loading loading-spinner loading-sm'></div>
   )
 }
 

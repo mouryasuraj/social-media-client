@@ -5,6 +5,7 @@ import Login from '../features/auth/pages/Login'
 import './App.css'
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
 import store from './store'
+import Toastify from '../components/Toastify'
 
 
 const router = createBrowserRouter([
@@ -29,9 +30,8 @@ function App() {
   return (
     <div>
       <Provider store={store}>
-        <RouterProvider router={router}>
-          <Outlet />
-        </RouterProvider>
+        <RouterProvider router={router} />
+        <Toastify />
       </Provider>
     </div>
   )
