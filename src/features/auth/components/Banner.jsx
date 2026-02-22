@@ -2,13 +2,13 @@
 import BannerImg from '../../../assets/login-banner.avif'
 import Logo from '../../../components/Logo'
 
-const LoginBanner = () => {
+const Banner = () => {
     return (
-        <div className='w-[50%]'>
+        <div>
             <Logo fontSize='4vw' />
             <img src={BannerImg} alt="" />
         </div>
     )
 }
 
-export default LoginBanner
+export default Banner

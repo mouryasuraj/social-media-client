@@ -1,7 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import loginService from "../services/loginService";
-import { toast } from "react-toastify";
-import { showMessage } from "../../../utils/constants/showMessage";
+import { createSlice } from "@reduxjs/toolkit";
+import loginService from '../services/loginService.js'
+import signUpService from "../services/signupService.js";
+import { login, sendOtp, verifyotp } from "./authThunks.js";
+
 
 // Initial State 
 const initialState = {
@@ -9,18 +10,13 @@ const initialState = {
     isLoading:false,
     isError:false,
     isSuccess:false,
-    message:""
+    message:"",
+    showOtpSection:false
 }
 
-export const login = createAsyncThunk("/auth/login", async (data, thunkAPI)=>{
-    try {
-        const response = await loginService.login(data)
-        return response
-    } catch (error) {
-        console.error(error)
-        return thunkAPI.rejectWithValue(error?.response?.data?.message || "Login failed")
-    }
-})
+const handlePending = (state) =>{
+    state.isLoading = true
+}
 
 
 const authSlice = createSlice({
@@ -35,25 +31,14 @@ const authSlice = createSlice({
         }
     },
     extraReducers:(builder)=>{
-        builder.addCase(login.pending, (state)=>{
-            state.isLoading = true
-        })
-        .addCase(login.fulfilled, (state, action) =>{
-            state.user = action.payload?.data || null;
-            state.isLoading = false;
-            state.isError = false;
-            state.isSuccess = true;
-            state.message = action.payload?.message || "Successfully loggedIn."
-            showMessage("success", state.message)
-        })
-        .addCase(login.rejected, (state,action)=>{
-            state.user = null
-            state.isLoading = false;
-            state.isError = true;
-            state.isSuccess = false;
-            state.message = action.payload || "Something went wrong. Please try again later."
-            showMessage("error", state.message)
-        })
+        builder
+        .addCase(login.fulfilled,loginService.handleFulfilled)
+        .addCase(login.rejected, loginService.handleRejected)
+        .addCase(sendOtp.fulfilled,signUpService.handleFulfilled)
+        .addCase(sendOtp.rejected, signUpService.handleRejected)
+        .addCase(verifyotp.fulfilled,signUpService.handleOtpFullfilled)
+        .addCase(verifyotp.rejected, signUpService.handleOtpRejected)
+        .addMatcher((a)=> a.type.endsWith("/pending"),handlePending)
     }
 })
 
