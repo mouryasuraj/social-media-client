@@ -13,7 +13,7 @@ import Button from "../../../components/Button.jsx";
 const LoginForm = () => {
     const navigate = useNavigate()
     const { handleInputChange, handleSubmit } = useLoginForm()
-    const { isLoading } = useSelector(store => store.auth)
+    const { isLoading, message, isError } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
 
@@ -32,10 +32,11 @@ const LoginForm = () => {
                             onChange={(e) => {
                                 handleInputChange(e, "email")
                             }}
+                            required={true}
                             autoFocus
                             tabIndex={1}
                             className="outline-none ml-2 w-full"
-                            type="text"
+                            type="email"
                             placeholder="Username or Email ID"
                             name="email"
                         />
@@ -49,6 +50,7 @@ const LoginForm = () => {
                                 onChange={(e) => {
                                     handleInputChange(e, "password")
                                 }}
+                                required={true}
                                 tabIndex={2}
                                 className="outline-none ml-2 w-full"
                                 type={isShowPassword ? "text" : "password"}
@@ -75,8 +77,9 @@ const LoginForm = () => {
                         </label>
                     </div>
                     <div className="space-y-1">
+                        {message && <p className="text-red-500">{message}</p>}
                         <Button btnTxt={proceedBtnTxt} icon={faForward} />
-                        <p style={{color:darkBlue}} className={`text-center font-semibold`}>OR</p>
+                        <p style={{ color: darkBlue }} className={`text-center font-semibold`}>OR</p>
                         <GoogleLogin
                             onSuccess={async (data) => {
                                 console.log(data)
@@ -92,7 +95,7 @@ const LoginForm = () => {
                     <p className="text-[#0b8585] text-sm font-semibold hover:underline cursor-pointer">
                         {forgotPassTxt}
                     </p>
-                    <p onClick={()=> navigate("/auth/signup")} className="text-[#0b8585] select-none text-sm font-semibold hover:underline cursor-pointer">
+                    <p onClick={() => navigate("/auth/signup")} className="text-[#0b8585] select-none text-sm font-semibold hover:underline cursor-pointer">
                         {createAnAccountTxt}
                     </p>
                 </div>

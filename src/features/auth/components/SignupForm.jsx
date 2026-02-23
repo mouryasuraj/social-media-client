@@ -18,9 +18,6 @@ const SignupForm = () => {
     const { isLoading, showOtpSection } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
-    console.log(userDetails)
-
-
     return (
         <div className="w-[50%]">
             {showOtpSection ? <OTPSection userDetails={userDetails} /> : <div className="px-5 relative bg-white py-5 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
@@ -28,6 +25,21 @@ const SignupForm = () => {
                     {signInTitle}
                 </h2>
                 <form onSubmit={handleSendOtp} className="w-full space-y-3">
+                    
+                    {/* Email */}
+                    <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
+                        <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
+                        <input
+                            onChange={(e) => {
+                                handleInputChange(e, "email")
+                            }}
+                            tabIndex={3}
+                            className="outline-none ml-2 w-full"
+                            type="text"
+                            placeholder="Please enter your email"
+                            name="email"
+                        />
+                    </div>
                     {/* Full Name */}
                     <div className='flex items-center gap-3'>
                         <div className="flex items-center outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
@@ -55,20 +67,6 @@ const SignupForm = () => {
                                 name="fullname"
                             />
                         </div>
-                    </div>
-                    {/* Email */}
-                    <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
-                        <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
-                        <input
-                            onChange={(e) => {
-                                handleInputChange(e, "email")
-                            }}
-                            tabIndex={3}
-                            className="outline-none ml-2 w-full"
-                            type="text"
-                            placeholder="Please enter your email"
-                            name="email"
-                        />
                     </div>
 
                     {/* Password */}

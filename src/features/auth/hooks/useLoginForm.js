@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { showMessage } from "../../../utils/constants/showMessage.js";
 import { useNavigate } from "react-router-dom";
 import { login } from "../slices/authThunks.js";
+import loginService from "../services/loginService.js";
 
 export const useLoginForm = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -15,13 +15,15 @@ export const useLoginForm = () => {
   };
 
   const handleSubmit = async (e) => {
-      e.preventDefault();
-      toast.dismiss();
+    e.preventDefault();
+    toast.dismiss();
     try {
+      loginService.validateLoginField(userDetails,dispatch)
+
       await dispatch(login(userDetails)).unwrap();
       navigate("/home")
     } catch (error) {
-        console.log(error)
+      console.log(error)
     }
   };
 

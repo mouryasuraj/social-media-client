@@ -6,43 +6,49 @@ import { login, sendOtp, verifyotp } from "./authThunks.js";
 
 // Initial State 
 const initialState = {
-    user:null,
-    isLoading:false,
-    isError:false,
-    isSuccess:false,
-    message:"",
-    showOtpSection:false
+    user: null,
+    isLoading: false,
+    isError: false,
+    isSuccess: false,
+    message: "",
+    showOtpSection: false
 }
 
-const handlePending = (state) =>{
+const handlePending = (state) => {
     state.isLoading = true
 }
 
 
 const authSlice = createSlice({
-    name:"auth",
+    name: "auth",
     initialState,
-    reducers:{
-        logout:()=>{
+    reducers: {
+        logout: () => {
 
         },
-        reset:()=>{
+        reset: () => {
 
+        },
+        setMessage: (state, action) => {
+            state.message = action.payload
+        },
+        setIsError: (state, action) => {
+            state.isError = action.payload
         }
     },
-    extraReducers:(builder)=>{
+    extraReducers: (builder) => {
         builder
-        .addCase(login.fulfilled,loginService.handleFulfilled)
-        .addCase(login.rejected, loginService.handleRejected)
-        .addCase(sendOtp.fulfilled,signUpService.handleFulfilled)
-        .addCase(sendOtp.rejected, signUpService.handleRejected)
-        .addCase(verifyotp.fulfilled,signUpService.handleOtpFullfilled)
-        .addCase(verifyotp.rejected, signUpService.handleOtpRejected)
-        .addMatcher((a)=> a.type.endsWith("/pending"),handlePending)
+            .addCase(login.fulfilled, loginService.handleFulfilled)
+            .addCase(login.rejected, loginService.handleRejected)
+            .addCase(sendOtp.fulfilled, signUpService.handleFulfilled)
+            .addCase(sendOtp.rejected, signUpService.handleRejected)
+            .addCase(verifyotp.fulfilled, signUpService.handleOtpFullfilled)
+            .addCase(verifyotp.rejected, signUpService.handleOtpRejected)
+            .addMatcher((a) => a.type.endsWith("/pending"), handlePending)
     }
 })
 
-export const {logout, reset} = authSlice.actions
+export const { logout, reset, setIsError, setMessage } = authSlice.actions
 
 export default authSlice.reducer
 
