@@ -1,10 +1,10 @@
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { darkBlue } from '../../../utils/constants'
 import { proceedBtnTxt, showPasswordTxt, signInTitle } from '../constants'
 import SpinnerLoader from '../../../components/SpinnerLoader'
 import { faForward, faLock, faUser, faKey } from '@fortawesome/free-solid-svg-icons'
-import { useDebugValue, useState } from 'react'
+import { useDebugValue, useEffect, useState } from 'react'
 import { GoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,7 +15,7 @@ import Button from '../../../components/Button'
 const SignupForm = () => {
     const navigate = useNavigate()
     const { handleInputChange, handleSendOtp,userDetails } = useSignupForm()
-    const { isLoading, showOtpSection } = useSelector(store => store.auth)
+    const { showOtpSection, message } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     return (
@@ -117,6 +117,7 @@ const SignupForm = () => {
                         </label>
                     </div>
                     <div className="space-y-1">
+                        {message && <p className="text-red-500 text-sm">{message}</p>}
                         <Button btnTxt={proceedBtnTxt} icon={faForward} />
                         <p style={{ color: darkBlue }} className={`text-center font-semibold`}>OR</p>
                         <GoogleLogin

@@ -26,7 +26,6 @@ const handleRejected = (state, action) => {
   state.isSuccess = false;
   state.message =
     action.payload || "Something went wrong. Please try again later.";
-  showMessage("error", state.message);
 
 };
 

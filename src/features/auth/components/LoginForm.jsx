@@ -17,14 +17,13 @@ const LoginForm = () => {
     const [isShowPassword, setIsShowPassword] = useState(false)
 
 
-
     return (
         <div className="w-[50%]">
             <div className="px-5 relative bg-white py-12 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
                 <h2 className="text-2xl font-semibold text-center text-[#012D52]">
                     {loginTitle}
                 </h2>
-                <form onSubmit={handleSubmit} className="w-full space-y-4">
+                <form onSubmit={handleSubmit} className="w-full space-y-2">
                     {/* Email */}
                     <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                         <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
@@ -77,7 +76,7 @@ const LoginForm = () => {
                         </label>
                     </div>
                     <div className="space-y-1">
-                        {message && <p className="text-red-500">{message}</p>}
+                        {message && <p className="text-red-500 text-sm">{message}</p>}
                         <Button btnTxt={proceedBtnTxt} icon={faForward} />
                         <p style={{ color: darkBlue }} className={`text-center font-semibold`}>OR</p>
                         <GoogleLogin

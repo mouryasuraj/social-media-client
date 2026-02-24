@@ -31,7 +31,6 @@ const handleRejected = (state, action) => {
   state.isSuccess = false;
   state.showOtpSection = false;
   state.message = action.payload || "Sign up failed";
-  showMessage("error", state.message);
 };
 
 const handleOtpFullfilled = (state, action) => {
@@ -52,7 +51,6 @@ const handleOtpRejected = (state, action) => {
   state.isSuccess = false;
   state.showOtpSection = true;
   state.message = action.payload || "OTP verification failed";
-  showMessage("error", state.message);
 };
 
 const signUpService = {

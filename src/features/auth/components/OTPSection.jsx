@@ -1,13 +1,15 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useSignupForm } from '../hooks'
-import { darkBlue, lightBlue } from '../../../utils/constants'
+import { darkBlue } from '../../../utils/constants'
 import { faForward, faMessage } from '@fortawesome/free-solid-svg-icons'
 import { proceedBtnTxt } from '../constants'
 import Button from '../../../components/Button'
+import { useSelector } from 'react-redux'
 
 const OTPSection = ({ userDetails }) => {
-    const { handleVerifyOtp, setOtp,otp } = useSignupForm()
+    const { handleVerifyOtp, setOtp, otp } = useSignupForm()
+    const { message } = useSelector(store => store.auth)
 
     return (
         <div className="px-5 relative bg-white py-5 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
@@ -17,7 +19,7 @@ const OTPSection = ({ userDetails }) => {
             <form onSubmit={(e) => {
                 e.preventDefault()
                 handleVerifyOtp(userDetails?.email)
-                }} className="w-full space-y-3">
+            }} className="w-full space-y-3">
                 {/* OTP */}
                 <p className='text-[#012D52] text-sm'>
                     Please enter the OTP sent to <span className='font-semibold text-blue-500 underline'> {userDetails?.email.toLowerCase()}</span> {!userDetails?.email && "your email ID."}
@@ -34,6 +36,8 @@ const OTPSection = ({ userDetails }) => {
                         name="email"
                     />
                 </div>
+
+                {message && <p className="text-red-500 text-sm">{message}</p>}
                 <Button btnTxt={proceedBtnTxt} icon={faForward} />
 
 
