@@ -8,7 +8,7 @@ export const login = createAsyncThunk("/auth/login", async (data, thunkAPI)=>{
         return response
     } catch (error) {
         console.log(error)
-        return thunkAPI.rejectWithValue(error?.response?.data?.message || "Login failed")
+        return thunkAPI.rejectWithValue({message:error?.response?.data?.message} || "Login failed")
     }
 })
 
@@ -18,7 +18,7 @@ export const sendOtp = createAsyncThunk("/auth/sendotp", async (data, thunkAPI) 
         return response
     } catch (error) {
         console.log(error)
-        return thunkAPI.rejectWithValue(error?.response?.data?.message || "Sigup failed")
+        return thunkAPI.rejectWithValue({message:error?.response?.data?.message} || "Signup failed")
     }
 })
 
@@ -29,6 +29,6 @@ export const verifyotp = createAsyncThunk("/auth/verifyotp",async (data, thunkAP
         return response
     } catch (error) {
         console.log(error)
-        return thunkAPI.rejectWithValue(error?.response?.data?.message || "OTP verification failed")
+        return thunkAPI.rejectWithValue({message:error?.response?.data?.message, status:error?.status} || "OTP verification failed")
     }
 })

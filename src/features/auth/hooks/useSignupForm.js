@@ -4,35 +4,39 @@ import { sendOtp, verifyotp } from "../slices/authThunks";
 import { toast } from "react-toastify";
 import { showMessage } from "../../../utils/constants/showMessage";
 import { useNavigate } from "react-router-dom";
-import { setMessage } from "../slices/authSlice";
+import { setIsError, setMessage, setShowOtpSection } from "../slices/authSlice";
+import signUpService from "../services/signupService";
 
 export const useSignupForm = () => {
-  const [userDetails, setUserDetails] = useState(null);
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [pass, setPass] = useState("")
+  const [confirmPass, setConfirmPass] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const [otp, setOtp] = useState(null);
+  const [otp, setOtp] = useState("");
 
   useEffect(() => {
     dispatch(setMessage(""))
   }, [])
 
-  const handleInputChange = (e, field) => {
-    setUserDetails((prev) => ({ ...prev, [field]: e.target.value }));
-  };
 
   const handleSendOtp = async (e) => {
     e.preventDefault();
     toast.dismiss();
     try {
-      const { firstName, lastName, email, password } = userDetails;
+      const data = signUpService.validateSignupField({firstName, lastName, email, pass, confirmPass})
       const payload = {
-        fullName: `${firstName} ${lastName}`,
-        email: email,
-        password: password,
+        fullName: `${data.firstName} ${data.lastName}`,
+        email: data.email,
+        password: data.pass,
       };
       await dispatch(sendOtp(payload)).unwrap();
     } catch (error) {
       console.log(error);
+      dispatch(setMessage(error.message || "Something went wrong"))
+      dispatch(setIsError(true))
     }
   };
 
@@ -46,14 +50,29 @@ export const useSignupForm = () => {
       }
     } catch (error) {
       console.log(error);
-      console.log("error",error)
+      dispatch(setMessage(error.message))
+      if(error.status===403){
+        showMessage("error",error.message)
+        navigate("/auth/login")
+        dispatch(setShowOtpSection(false))
+        dispatch(setIsError(false))
+        dispatch(setMessage(""))
+      }
     }
   };
 
   return {
-    userDetails,
-    setUserDetails,
-    handleInputChange,
+    firstName, 
+    lastName, 
+    email,
+    pass,
+    confirmPass,
+    otp,
+    setFirstName,
+    setLastName,
+    setEmail,
+    setPass,
+    setConfirmPass,
     handleSendOtp,
     handleVerifyOtp,
     setOtp,

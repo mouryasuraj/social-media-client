@@ -7,7 +7,7 @@ import { proceedBtnTxt } from '../constants'
 import Button from '../../../components/Button'
 import { useSelector } from 'react-redux'
 
-const OTPSection = ({ userDetails }) => {
+const OTPSection = ({email}) => {
     const { handleVerifyOtp, setOtp, otp } = useSignupForm()
     const { message } = useSelector(store => store.auth)
 
@@ -18,11 +18,11 @@ const OTPSection = ({ userDetails }) => {
             </h2>
             <form onSubmit={(e) => {
                 e.preventDefault()
-                handleVerifyOtp(userDetails?.email)
+                handleVerifyOtp(email)
             }} className="w-full space-y-3">
                 {/* OTP */}
                 <p className='text-[#012D52] text-sm'>
-                    Please enter the OTP sent to <span className='font-semibold text-blue-500 underline'> {userDetails?.email.toLowerCase()}</span> {!userDetails?.email && "your email ID."}
+                    Please enter the OTP sent to <span className='font-semibold text-blue-500 underline'> {email.toLowerCase()}</span> {email && "your email ID."}
                 </p>
                 <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                     <FontAwesomeIcon color={darkBlue} className="" icon={faMessage} />
@@ -30,6 +30,7 @@ const OTPSection = ({ userDetails }) => {
                         onChange={(e) => setOtp(e.target.value)}
                         value={otp}
                         tabIndex={3}
+                        required
                         className="outline-none ml-2 w-full"
                         type="text"
                         placeholder="Enter OTP"

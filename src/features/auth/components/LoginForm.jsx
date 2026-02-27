@@ -12,7 +12,7 @@ import Button from "../../../components/Button.jsx";
 
 const LoginForm = () => {
     const navigate = useNavigate()
-    const { handleInputChange, handleSubmit } = useLoginForm()
+    const { handleSubmit,setPass, setEmail, pass, email } = useLoginForm()
     const { isLoading, message, isError } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
@@ -29,11 +29,12 @@ const LoginForm = () => {
                         <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
                         <input
                             onChange={(e) => {
-                                handleInputChange(e, "email")
+                                setEmail(e.target.value)
                             }}
                             required={true}
                             autoFocus
                             tabIndex={1}
+                            value={email}
                             className="outline-none ml-2 w-full"
                             type="email"
                             placeholder="Username or Email ID"
@@ -47,10 +48,11 @@ const LoginForm = () => {
                             <FontAwesomeIcon color={darkBlue} className="" icon={faLock} />
                             <input
                                 onChange={(e) => {
-                                    handleInputChange(e, "password")
+                                    setPass(e.target.value)
                                 }}
                                 required={true}
                                 tabIndex={2}
+                                value={pass}
                                 className="outline-none ml-2 w-full"
                                 type={isShowPassword ? "text" : "password"}
                                 placeholder="Password"

@@ -14,26 +14,29 @@ import Button from '../../../components/Button'
 
 const SignupForm = () => {
     const navigate = useNavigate()
-    const { handleInputChange, handleSendOtp,userDetails } = useSignupForm()
+    const { handleSendOtp, setFirstName, firstName, setLastName, lastName, setEmail, email, setPass, pass, setConfirmPass, confirmPass } = useSignupForm()
     const { showOtpSection, message } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
     return (
         <div className="w-[50%]">
-            {showOtpSection ? <OTPSection userDetails={userDetails} /> : <div className="px-5 relative bg-white py-5 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
+            {showOtpSection ? <OTPSection email={email} /> : <div className="px-5 relative bg-white py-5 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
                 <h2 className="text-2xl font-semibold text-center text-[#012D52]">
                     {signInTitle}
                 </h2>
                 <form onSubmit={handleSendOtp} className="w-full space-y-3">
-                    
+
                     {/* Email */}
                     <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                         <FontAwesomeIcon color={darkBlue} className="" icon={faUser} />
                         <input
                             onChange={(e) => {
-                                handleInputChange(e, "email")
+                                setEmail(e.target.value)
                             }}
-                            tabIndex={3}
+                            value={email}
+                            autoFocus
+                            required
+                            tabIndex={1}
                             className="outline-none ml-2 w-full"
                             type="text"
                             placeholder="Please enter your email"
@@ -45,10 +48,11 @@ const SignupForm = () => {
                         <div className="flex items-center outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                             <input
                                 onChange={(e) => {
-                                    handleInputChange(e, "lastName")
+                                    setFirstName(e.target.value)
                                 }}
-                                autoFocus
-                                tabIndex={1}
+                                value={firstName}
+                                tabIndex={2}
+                                required
                                 className="outline-none w-full"
                                 type="text"
                                 placeholder="First name"
@@ -58,9 +62,11 @@ const SignupForm = () => {
                         <div className="flex items-center outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                             <input
                                 onChange={(e) => {
-                                    handleInputChange(e, "firstName")
+                                    setLastName(e.target.value)
                                 }}
-                                tabIndex={2}
+                                value={lastName}
+                                tabIndex={3}
+                                required
                                 className="outline-none w-full"
                                 type="text"
                                 placeholder="Last name"
@@ -74,9 +80,11 @@ const SignupForm = () => {
                         <FontAwesomeIcon color={darkBlue} className="" icon={faLock} />
                         <input
                             onChange={(e) => {
-                                handleInputChange(e, "password")
+                                setPass(e.target.value)
                             }}
+                            value={pass}
                             tabIndex={4}
+                            required
                             className="outline-none ml-2 w-full"
                             type="password"
                             placeholder="Password"
@@ -89,9 +97,11 @@ const SignupForm = () => {
                             <FontAwesomeIcon color={darkBlue} className="" icon={faKey} />
                             <input
                                 onChange={(e) => {
-                                    handleInputChange(e, "confirmPassword")
+                                    setConfirmPass(e.target.value)
                                 }}
+                                value={confirmPass}
                                 tabIndex={5}
+                                required
                                 className="outline-none ml-2 w-full"
                                 type={isShowPassword ? "text" : "password"}
                                 placeholder="Confirm Password"
@@ -106,8 +116,6 @@ const SignupForm = () => {
                             htmlFor="showpassword"
                         >
                             <input
-
-
                                 tabIndex={6}
                                 id="showpassword"
                                 type="checkbox"

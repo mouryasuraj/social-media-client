@@ -34,6 +34,9 @@ const authSlice = createSlice({
         },
         setIsError: (state, action) => {
             state.isError = action.payload
+        },
+        setShowOtpSection: (state, action) => {
+            state.showOtpSection = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -48,7 +51,7 @@ const authSlice = createSlice({
     }
 })
 
-export const { logout, reset, setIsError, setMessage } = authSlice.actions
+export const { logout, reset, setIsError, setMessage, setShowOtpSection } = authSlice.actions
 
 export default authSlice.reducer
 

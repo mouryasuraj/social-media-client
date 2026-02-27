@@ -25,24 +25,19 @@ const handleRejected = (state, action) => {
   state.isError = true;
   state.isSuccess = false;
   state.message =
-    action.payload || "Something went wrong. Please try again later.";
+    action.payload?.message || "Something went wrong. Please try again later.";
 
 };
 
-const validateLoginField = (userDetails,dispatch) =>{
+const validateLoginField = (userDetails) =>{
   const {email, password} = userDetails;
   if(!email || !password) {
-    dispatch(setMessage("please provide input"))
-    dispatch(setIsError(true))
-    return
+    throw new Error("please provide input")
   }
 
   if(!validator.isEmail(email)){
-    dispatch(setMessage("Please provide valid email"))
-    dispatch(setIsError(true))
-    return
+    throw new Error("Please provide valid email")
   }
-
 }
 
 
