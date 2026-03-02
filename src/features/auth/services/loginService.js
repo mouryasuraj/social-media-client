@@ -15,6 +15,8 @@ const handleFulfilled = (state, action) => {
   state.isLoading = false;
   state.isError = false;
   state.isSuccess = true;
+  state.isAuthenticated=true,
+  state.isAuthChecked=true,
   state.message = action.payload?.message || "Successfully loggedIn.";
   showMessage("success", state.message);
 };

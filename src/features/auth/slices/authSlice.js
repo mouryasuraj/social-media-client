@@ -11,7 +11,9 @@ const initialState = {
     isError: false,
     isSuccess: false,
     message: "",
-    showOtpSection: false
+    showOtpSection: false,
+    isAuthenticated:false,
+    isAuthChecked:false,
 }
 
 const handlePending = (state) => {
@@ -37,6 +39,15 @@ const authSlice = createSlice({
         },
         setShowOtpSection: (state, action) => {
             state.showOtpSection = action.payload
+        },
+        setIsAuthenticated: (state, action) => {
+            state.isAuthenticated = action.payload
+        },
+        setUser: (state, action) => {
+            state.user = action.payload
+        },
+        setIsAuthChecked: (state, action) => {
+            state.isAuthChecked = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -51,7 +62,7 @@ const authSlice = createSlice({
     }
 })
 
-export const { logout, reset, setIsError, setMessage, setShowOtpSection } = authSlice.actions
+export const { logout, reset, setIsError, setMessage, setShowOtpSection, setIsAuthenticated,setUser, setIsAuthChecked } = authSlice.actions
 
 export default authSlice.reducer
 

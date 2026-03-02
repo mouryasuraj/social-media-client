@@ -1,23 +1,26 @@
 
-import { Provider } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 import Error from '../components/Error'
 import './App.css'
-import { createBrowserRouter, Navigate, Outlet, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider, useNavigate } from 'react-router-dom'
 import store from './store'
 import Toastify from '../components/Toastify'
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { env } from '../utils/constants'
+import { env, handleVerifyToken } from '../utils/constants'
 import Auth from '../features/auth/Auth'
 import Login from '../features/auth/components/Login'
 import SignUp from '../features/auth/components/SignUp'
 import ProtectedRoute from '../components/ProtectedRoute'
- 
+import { useEffect } from 'react'
+import { setIsAuthenticated } from '../features/auth/slices/authSlice'
+import Home from '../components/Home'
+
 
 const router = createBrowserRouter([
   {
     path: "/home",
     element: <ProtectedRoute>
-      <p>Hello from Home page</p>
+      <Home />
     </ProtectedRoute>,
   },
   {
@@ -36,7 +39,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Navigate to={"/auth/login"} />
+    element: <Navigate to={"/auth/login"} replace={true} />
   },
   {
     path: "*",
@@ -45,17 +48,17 @@ const router = createBrowserRouter([
 ])
 
 
-
 function App() {
+
+  const {isAuthChecked, isAuthenticated} = useSelector(store => store.auth)
+  
+  console.log("app.jsx", isAuthChecked, isAuthenticated)
+
 
   return (
     <div>
-      <GoogleOAuthProvider clientId={env.GOOGLE_CLIENT_ID}>
-        <Provider store={store}>
-          <RouterProvider router={router} />
-          <Toastify />
-        </Provider>
-      </GoogleOAuthProvider>
+      <RouterProvider router={router} />
+      <Toastify />
     </div>
   )
 }

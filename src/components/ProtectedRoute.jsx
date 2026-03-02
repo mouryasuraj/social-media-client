@@ -1,17 +1,15 @@
 import { useSelector } from "react-redux"
 import SpinnerLoader from "./SpinnerLoader"
-import { Navigate } from "react-router-dom"
+import { Navigate} from "react-router-dom"
 
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = ({ children }) => {
 
+  const { isAuthenticated, isAuthChecked } = useSelector(store => store.auth)
 
-  const {user, isLoading} = useSelector(store => store.auth)
+  if (!isAuthChecked) return <SpinnerLoader />
 
-  if(isLoading) return <SpinnerLoader />
-
-
-  if(!user) return <Navigate to={"/auth/login"} />
+  if (!isAuthenticated) return <Navigate to={"/auth/login"} replace />
 
   return children
 }
