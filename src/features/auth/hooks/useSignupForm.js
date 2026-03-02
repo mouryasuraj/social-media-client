@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { sendOtp, verifyotp } from "../slices/authThunks";
+import { sendOtp } from "../slices/authThunks";
 import { toast } from "react-toastify";
-import { showMessage } from "../../../utils/constants/showMessage";
-import { useNavigate } from "react-router-dom";
 import { setIsError, setMessage, setShowOtpSection } from "../slices/authSlice";
 import signUpService from "../services/signupService";
 
@@ -14,11 +12,10 @@ export const useSignupForm = () => {
   const [pass, setPass] = useState("")
   const [confirmPass, setConfirmPass] = useState("")
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const [otp, setOtp] = useState("");
-
+  
   useEffect(() => {
     dispatch(setMessage(""))
+    dispatch(setShowOtpSection(false))
   }, [])
 
 
@@ -32,32 +29,15 @@ export const useSignupForm = () => {
         email: data.email,
         password: data.pass,
       };
-      await dispatch(sendOtp(payload)).unwrap();
+      const respone = await dispatch(sendOtp(payload)).unwrap();
+      // if(respone?.status){
+      //   dispatch(setShowOtpSection(true))
+      // }
+      
     } catch (error) {
       console.log(error);
       dispatch(setMessage(error.message || "Something went wrong"))
       dispatch(setIsError(true))
-    }
-  };
-
-  const handleVerifyOtp = async (email) => {
-    toast.dismiss();
-    try {
-      const payload = { email: email, otp };
-      const data = await dispatch(verifyotp(payload)).unwrap();
-      if (data.status) {
-        navigate("/auth/login")
-      }
-    } catch (error) {
-      console.log(error);
-      dispatch(setMessage(error.message))
-      if(error.status===403){
-        showMessage("error",error.message)
-        navigate("/auth/login")
-        dispatch(setShowOtpSection(false))
-        dispatch(setIsError(false))
-        dispatch(setMessage(""))
-      }
     }
   };
 
@@ -67,14 +47,11 @@ export const useSignupForm = () => {
     email,
     pass,
     confirmPass,
-    otp,
     setFirstName,
     setLastName,
     setEmail,
     setPass,
     setConfirmPass,
     handleSendOtp,
-    handleVerifyOtp,
-    setOtp,
   };
 };

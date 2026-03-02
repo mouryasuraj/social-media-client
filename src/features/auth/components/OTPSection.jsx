@@ -6,10 +6,12 @@ import { faForward, faMessage } from '@fortawesome/free-solid-svg-icons'
 import { proceedBtnTxt } from '../constants'
 import Button from '../../../components/Button'
 import { useSelector } from 'react-redux'
+import { useOTPForm } from '../hooks/useOTPForm'
 
 const OTPSection = ({email}) => {
-    const { handleVerifyOtp, setOtp, otp } = useSignupForm()
+    const { handleVerifyOtp, setOtp, otp } = useOTPForm()
     const { message } = useSelector(store => store.auth)
+    
 
     return (
         <div className="px-5 relative bg-white py-5 rounded-2xl w-[60%] mx-auto space-y-3 shadow-lg shadow-[#a6c2c2]">
@@ -22,7 +24,7 @@ const OTPSection = ({email}) => {
             }} className="w-full space-y-3">
                 {/* OTP */}
                 <p className='text-[#012D52] text-sm'>
-                    Please enter the OTP sent to <span className='font-semibold text-blue-500 underline'> {email.toLowerCase()}</span> {email && "your email ID."}
+                    Please enter the OTP sent to <span className='font-semibold text-blue-500 underline'> {email.toLowerCase()}</span> {!email && "your email ID."}
                 </p>
                 <div className="flex items-center w-full outline-none px-2 py-2 rounded-sm border-2 border-[#012D52] bg-white">
                     <FontAwesomeIcon color={darkBlue} className="" icon={faMessage} />

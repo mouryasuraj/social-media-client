@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { login } from "../slices/authThunks.js";
 import loginService from "../services/loginService.js";
-import { setIsError, setMessage } from "../slices/authSlice.js";
+import { setIsError, setMessage, setShowOtpSection } from "../slices/authSlice.js";
 
 export const useLoginForm = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +14,7 @@ export const useLoginForm = () => {
 
   useEffect(() => {
     dispatch(setMessage(""))
+    dispatch(setShowOtpSection(false))
   }, [])
 
   const handleSubmit = async (e) => {
