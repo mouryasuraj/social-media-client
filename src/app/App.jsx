@@ -1,26 +1,21 @@
 
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Error from '../components/Error'
 import './App.css'
-import { createBrowserRouter, Navigate, RouterProvider, useNavigate } from 'react-router-dom'
-import store from './store'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Toastify from '../components/Toastify'
-import { GoogleOAuthProvider } from '@react-oauth/google'
-import { env, handleVerifyToken } from '../utils/constants'
 import Auth from '../features/auth/Auth'
 import Login from '../features/auth/components/Login'
 import SignUp from '../features/auth/components/SignUp'
 import ProtectedRoute from '../components/ProtectedRoute'
-import { useEffect } from 'react'
-import { setIsAuthenticated } from '../features/auth/slices/authSlice'
-import Home from '../components/Home'
+import UserLayout from '../Layout/UserLayout'
 
 
 const router = createBrowserRouter([
   {
-    path: "/home",
+    path: "/",
     element: <ProtectedRoute>
-      <Home />
+      <UserLayout />
     </ProtectedRoute>,
   },
   {
@@ -36,10 +31,6 @@ const router = createBrowserRouter([
         element: <SignUp />
       },
     ]
-  },
-  {
-    path: "/",
-    element: <Navigate to={"/auth/login"} replace={true} />
   },
   {
     path: "*",

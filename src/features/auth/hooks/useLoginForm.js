@@ -25,7 +25,7 @@ export const useLoginForm = () => {
       loginService.validateLoginField(userDetails)
 
       await dispatch(login(userDetails)).unwrap();
-      navigate("/home")
+      navigate("/")
     } catch (error) {
       console.log(error)
       dispatch(setMessage(error.message))
