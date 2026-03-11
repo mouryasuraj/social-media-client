@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../slices/authThunks.js";
 import loginService from "../services/loginService.js";
 import { setIsError, setMessage, setShowOtpSection } from "../slices/authSlice.js";
+import { defaulErrMsg } from "../../../utils/constants/ui.constants.js";
 
 export const useLoginForm = () => {
   const [email, setEmail] = useState("");
@@ -27,8 +28,7 @@ export const useLoginForm = () => {
       await dispatch(login(userDetails)).unwrap();
       navigate("/")
     } catch (error) {
-      console.log(error)
-      dispatch(setMessage(error.message))
+      dispatch(setMessage(error?.message || defaulErrMsg))
       dispatch(setIsError(true))
     }
   };
