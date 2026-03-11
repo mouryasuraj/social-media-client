@@ -1,9 +1,7 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useSignupForm } from '../hooks'
-import { darkBlue } from '../../../utils/constants'
+import { darkBlue,proceedBtnTxt } from '../../../utils/constants'
 import { faForward, faMessage } from '@fortawesome/free-solid-svg-icons'
-import { proceedBtnTxt } from '../constants'
 import Button from '../../../components/Button'
 import { useSelector } from 'react-redux'
 import { useOTPForm } from '../hooks/useOTPForm'

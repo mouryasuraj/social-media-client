@@ -1,19 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faForward, faUser, faLock } from "@fortawesome/free-solid-svg-icons";
-import { darkBlue, lightBlue } from "../../../utils/constants";
+import { darkBlue, createAnAccountTxt, forgotPassTxt, loginTitle, proceedBtnTxt, showPasswordTxt } from "../../../utils/constants";
 import { useState } from "react";
 import { useLoginForm } from "../hooks";
-import { createAnAccountTxt, forgotPassTxt, loginTitle, proceedBtnTxt, showPasswordTxt } from "../constants.js"
 import { useSelector } from "react-redux";
-import SpinnerLoader from "../../../components/SpinnerLoader.jsx";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import Button from "../../../components/Button.jsx";
 
 const LoginForm = () => {
     const navigate = useNavigate()
-    const { handleSubmit,setPass, setEmail, pass, email } = useLoginForm()
-    const { isLoading, message, isError } = useSelector(store => store.auth)
+    const { handleSubmit, setPass, setEmail, pass, email } = useLoginForm()
+    const { message } = useSelector(store => store.auth)
     const [isShowPassword, setIsShowPassword] = useState(false)
 
 

@@ -16,6 +16,7 @@ export const useLoginForm = () => {
   useEffect(() => {
     dispatch(setMessage(""))
     dispatch(setShowOtpSection(false))
+    
   }, [])
 
   const handleSubmit = async (e) => {

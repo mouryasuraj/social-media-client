@@ -1,8 +1,17 @@
+import { Outlet } from "react-router-dom"
+import useUserLayout from "./hooks/useUserLayout"
+import Navbar from "../components/Navbar"
 
 
 const UserLayout = () => {
+
+  useUserLayout()
+
   return (
-    <div>UserLayout</div>
+    <div>
+      <Navbar />
+      <Outlet />
+    </div>
   )
 }
 

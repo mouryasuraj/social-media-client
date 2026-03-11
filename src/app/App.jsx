@@ -9,6 +9,7 @@ import Login from '../features/auth/components/Login'
 import SignUp from '../features/auth/components/SignUp'
 import ProtectedRoute from '../components/ProtectedRoute'
 import UserLayout from '../Layout/UserLayout'
+import Feed from '../features/feed/Feed'
 
 
 const router = createBrowserRouter([
@@ -17,6 +18,12 @@ const router = createBrowserRouter([
     element: <ProtectedRoute>
       <UserLayout />
     </ProtectedRoute>,
+    children:[
+      {
+        path:"/feed",
+        element:<Feed />
+      },
+    ]
   },
   {
     path: "/auth",

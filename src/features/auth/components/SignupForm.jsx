@@ -1,10 +1,8 @@
 
-import { useDispatch, useSelector } from 'react-redux'
-import { darkBlue } from '../../../utils/constants'
-import { proceedBtnTxt, showPasswordTxt, signInTitle } from '../constants'
-import SpinnerLoader from '../../../components/SpinnerLoader'
+import { useSelector } from 'react-redux'
+import { darkBlue, proceedBtnTxt, showPasswordTxt, signInTitle } from '../../../utils/constants'
 import { faForward, faLock, faUser, faKey } from '@fortawesome/free-solid-svg-icons'
-import { useDebugValue, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { GoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
