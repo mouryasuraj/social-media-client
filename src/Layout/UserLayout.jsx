@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
 import useUserLayout from "./hooks/useUserLayout"
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar/Navbar"
 
 
 const UserLayout = () => {
@@ -10,7 +10,9 @@ const UserLayout = () => {
   return (
     <div>
       <Navbar />
-      <Outlet />
+      <div className="bg-gray-100 min-h-screen">
+        <Outlet />
+      </div>
     </div>
   )
 }

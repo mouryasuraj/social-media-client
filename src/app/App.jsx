@@ -10,6 +10,9 @@ import SignUp from '../features/auth/components/SignUp'
 import ProtectedRoute from '../components/ProtectedRoute'
 import UserLayout from '../Layout/UserLayout'
 import Feed from '../features/feed/Feed'
+import Network from '../features/network/Network'
+import Messaging from '../features/messaging/Messaging'
+import Notifications from '../features/notifications/Notifications'
 
 
 const router = createBrowserRouter([
@@ -22,6 +25,18 @@ const router = createBrowserRouter([
       {
         path:"/feed",
         element:<Feed />
+      },
+      {
+        path:"/network",
+        element:<Network />
+      },
+      {
+        path:"/messaging",
+        element:<Messaging />
+      },
+      {
+        path:"/notification",
+        element:<Notifications />
       },
     ]
   },

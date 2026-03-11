@@ -1,7 +1,7 @@
 // Logo Name
 export const LOGO={
     partOne:"work",
-    partTwo:"sphere"
+    partTwo:"sphere",
 }
 
 // ENV
@@ -23,3 +23,24 @@ export const createAnAccountTxt = "Create an account?"
 
 // Signup
 export const signInTitle = "Sign Up"
+
+
+// Navlinks 
+export const navlinks = [
+    {
+        name:"Home",
+        path:"/feed",
+    },
+    {
+        name:"Network",
+        path:"/network",
+    },
+    {
+        name:"Messaging",
+        path:"/messaging",
+    },
+    {
+        name:"Notifications",
+        path:"/notification",
+    },
+]

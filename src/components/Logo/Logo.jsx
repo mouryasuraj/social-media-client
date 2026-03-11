@@ -1,4 +1,4 @@
-import { lightBlue, LOGO, darkBlue } from "../utils/constants"
+import { lightBlue, LOGO, darkBlue } from "../../utils/constants"
 
 
 

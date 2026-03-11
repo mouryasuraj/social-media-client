@@ -1,6 +1,6 @@
 
 import BannerImg from '../../../assets/login-banner.avif'
-import Logo from '../../../components/Logo'
+import Logo from '../../../components/Logo/Logo'
 
 const Banner = () => {
     return (
