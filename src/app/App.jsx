@@ -13,6 +13,7 @@ import Feed from '../features/feed/Feed'
 import Network from '../features/network/Network'
 import Messaging from '../features/messaging/Messaging'
 import Notifications from '../features/notifications/Notifications'
+import Profile from '../features/profile/Profile'
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path:"/notification",
         element:<Notifications />
+      },
+      {
+        path:"/profile",
+        element:<Profile />
       },
     ]
   },
